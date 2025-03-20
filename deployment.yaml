@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-etlt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-etlt
+  template:
+    metadata:
+      labels:
+        app: grafana-etlt
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MYSQL_DATABASE
+              value: "grafana"
+            - name: MYSQL_USER
+              value: "grafana_user"
+            - name: MYSQL_PASSWORD
+              value: "grafana_password"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+        - name: grafana
+          image: grafana/grafana:latest
+          env:
+            - name: GF_DATABASE_TYPE
+              value: "mysql"
+            - name: GF_DATABASE_HOST
+              value: "127.0.0.1:3306"
+            - name: GF_DATABASE_NAME
+              value: "grafana"
+            - name: GF_DATABASE_USER
+              value: "grafana_user"
+            - name: GF_DATABASE_PASSWORD
+              value: "grafana_password"
+          ports:
+            - containerPort: 3000
+      volumes:
+        - name: mysql-storage
+          emptyDir: {}
+

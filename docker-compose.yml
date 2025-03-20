@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: etlt
+      MYSQL_USER: grafana_user
+      MYSQL_PASSWORD: grafana_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-db:/docker-entrypoint-initdb.d  # Mount SQL script
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_container
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306  # Internal MySQL port
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8080:80"  # phpMyAdmin will run on port 8080
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_container
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - GF_DATABASE_TYPE=mysql
+      - GF_DATABASE_HOST=mysql:3306
+      - GF_DATABASE_NAME=etlt
+      - GF_DATABASE_USER=root
+      - GF_DATABASE_PASSWORD=rootpassword
+    ports:
+      - "3100:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  mysql_data:
+  grafana_data:
+
