@@ -1,4 +1,4 @@
-# Projet Grafana, MySQL et Docker
+# Projet Dashboard KPIs
 
 Ce projet permet de visualiser des données stockées dans une base de données MySQL à l'aide de Grafana. Tout est conteneurisé avec Docker pour une prise en main facile.
 
@@ -21,18 +21,18 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
    ```bash
    docker-compose up -d
 
-  Cette commande va :
+  Cette commande va:
 
-    Créer les images Docker nécessaires.
+   Créer les images Docker nécessaires.
 
-    Démarrer un conteneur MySQL et charger les données initiales.
+   Démarrer un conteneur MySQL et charger les données initiales.
 
-    Démarrer un conteneur Grafana.
+   Démarrer un conteneur Grafana.
 
     
 3. Accédez à Grafana :
 
-  Ouvrez votre navigateur et rendez-vous à l'adresse suivante : http://localhost:3000
+     Ouvrez votre navigateur et rendez-vous à l'adresse suivante : http://localhost:3000
 
 
 4. Connectez-vous à Grafana :
