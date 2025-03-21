@@ -21,13 +21,13 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
    ```bash
    docker-compose up -d
 
-  Cette commande va:
-
-   Créer les images Docker nécessaires.
-
-   Démarrer un conteneur MySQL et charger les données initiales.
-
-   Démarrer un conteneur Grafana.
+     Cette commande va:
+   
+      Créer les images Docker nécessaires.
+   
+      Démarrer un conteneur MySQL et charger les données initiales.
+   
+      Démarrer un conteneur Grafana.
 
     
 3. Accédez à Grafana :
